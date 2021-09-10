@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="10dp">
+
+    <TextView
+        android:id="@+id/tv_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SETTINGS"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_LoginInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login information"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_Title" />
+
+
+    <TextView
+        android:id="@+id/tv_UserIdDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_LoginInformation"
+        tools:text="UserName" />
+
+    <TextView
+        android:id="@+id/HouseholdIdDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_UserIdDrawer"
+        tools:text="Household" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/bt_logout"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/tv_UserIdDrawer"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Logout"
+        android:backgroundTint="#707070"
+        app:layout_constraintBottom_toBottomOf="@id/HouseholdIdDrawer"/>
+
+    <TextView
+        android:id="@+id/tv_Broker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Broker"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/HouseholdIdDrawer" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/radio_broker"
+        app:layout_constraintTop_toBottomOf="@id/tv_Broker">
+
+        <RadioButton
+            android:id="@+id/radio_emqx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMQX"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_mosquitto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mosquitto"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credits"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_broker"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_credits"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_goneMarginStart="10dp"
+        android:text="Àlex Castillo Camacho\nLorenzo Migliori\nRafael Correa"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

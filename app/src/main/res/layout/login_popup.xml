@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#DF5E5E">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="0dp"
+        android:inputType="textPersonName"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
+        app:layout_constraintStart_toStartOf="@id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:background="#FDD2BF"
+        android:hint="Username"
+        android:textColorHint="#99454545"
+        android:textColor="@color/black"
+        android:imeOptions="actionNext"/>
+
+    <EditText
+        android:inputType="textPersonName"
+        android:layout_width="0dp"
+        android:id="@+id/household"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
+        app:layout_constraintStart_toStartOf="@id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:background="#FDD2BF"
+        android:hint="Household"
+        android:textColorHint="#99454545"
+        android:textColor="@color/black"
+        android:imeOptions="actionDone"/>
+
+    <Button
+        android:id="@+id/popupLoginButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/household"
+        app:layout_constraintStart_toStartOf="@+id/household"
+        app:layout_constraintTop_toBottomOf="@+id/household"
+        android:backgroundTint="#FFA900"
+        android:text="Login"
+        android:layout_marginBottom="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

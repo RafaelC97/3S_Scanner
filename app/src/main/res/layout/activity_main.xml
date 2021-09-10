@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DF5E5E"
+    tools:context=".MainActivity">
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scanner_view"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:autoFocusButtonColor="@android:color/white"
+        app:autoFocusButtonVisible="true"
+        app:flashButtonColor="@android:color/white"
+        app:flashButtonVisible="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maskColor="#9A000000"></com.budiyev.android.codescanner.CodeScannerView>
+
+    //barcode
+
+    <ImageView
+        android:id="@+id/tv_textViewBackground"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_big_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scanner_view" />
+
+    <TextView
+        android:id="@+id/tv_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#FDD2BF"
+        android:gravity="center"
+        android:text="Scan something"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_textViewBackground"
+        app:layout_constraintEnd_toEndOf="@+id/tv_textViewBackground"
+        app:layout_constraintStart_toStartOf="@+id/tv_textViewBackground"
+        app:layout_constraintTop_toTopOf="@id/tv_textViewBackground" />
+
+
+    <ImageView
+        android:id="@+id/expiryBackground"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_textViewBackground"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="465dp" />
+
+    <ImageButton
+        android:id="@+id/expiryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_textView"
+        android:background="#FDD2BF"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/expiryBackground"
+        app:layout_constraintEnd_toEndOf="@+id/expiryBackground"
+        app:layout_constraintStart_toStartOf="@+id/expiryBackground"
+        app:layout_constraintTop_toTopOf="@+id/expiryBackground" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintBottom_toBottomOf="@+id/expiryBackground"
+        app:layout_constraintStart_toEndOf="@+id/expiryBackground" />
+
+    <ImageView
+        android:id="@+id/dateBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
+        android:src="@drawable/ic_small_rectangle"
+        app:layout_constraintBottom_toBottomOf="@+id/expiryBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/expiryBackground" />
+
+    <TextView
+        android:id="@+id/tv_expiryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:background="#FDD2BF"
+        android:gravity="center_vertical|right"
+        android:text="dd/MM/yyyy"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dateBackground"
+        app:layout_constraintEnd_toEndOf="@+id/dateBackground"
+        app:layout_constraintStart_toStartOf="@+id/dateBackground"
+        app:layout_constraintTop_toTopOf="@+id/dateBackground" />
+
+
+    <ImageButton
+        android:id="@+id/resetDate"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:src="@drawable/ic_reset"
+        app:backgroundTint="#FDD2BF"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/expiryBackground"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+
+    <Button
+        android:id="@+id/subtractButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FDD2BF"
+        android:text="-"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBackground"
+        app:layout_constraintEnd_toEndOf="@+id/removeBackground"
+        app:layout_constraintStart_toStartOf="@+id/removeBackground"
+        app:layout_constraintTop_toTopOf="@+id/removeBackground" />
+
+    <ImageView
+        android:id="@+id/removeBackground"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintStart_toStartOf="@+id/expiryBackground"
+        app:layout_constraintTop_toBottomOf="@+id/expiryBackground" />
+
+    <ImageView
+        android:id="@+id/qttBackground"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintBottom_toBottomOf="@+id/removeBackground"
+        app:layout_constraintStart_toEndOf="@+id/removeBackground" />
+
+
+    <TextView
+        android:id="@+id/tv_productQtt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:background="#FDD2BF"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/qttBackground"
+        app:layout_constraintEnd_toEndOf="@+id/qttBackground"
+        app:layout_constraintStart_toEndOf="@+id/removeBackground"
+        app:layout_constraintTop_toTopOf="@+id/qttBackground" />
+
+    <ImageView
+        android:id="@+id/addBackground"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintBottom_toBottomOf="@+id/qttBackground"
+        app:layout_constraintStart_toEndOf="@+id/qttBackground" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FDD2BF"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/addBackground"
+        app:layout_constraintEnd_toEndOf="@+id/addBackground"
+        app:layout_constraintStart_toEndOf="@+id/qttBackground"
+        app:layout_constraintTop_toTopOf="@+id/addBackground" />
+
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_square"
+        app:layout_constraintBottom_toBottomOf="@+id/addBackground"
+        app:layout_constraintEnd_toEndOf="@+id/dateBackground" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:backgroundTint="#FDD2BF"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+    <ToggleButton
+        android:id="@+id/scanMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="monospace"
+        android:text="ToggleButton"
+        android:textOff="TRASHCAN SCANNER"
+        android:textOn="FRIDGE SCANNER"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
