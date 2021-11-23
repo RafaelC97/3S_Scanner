@@ -36,32 +36,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:hint="User ID"
         android:textColor="@color/white"
+        android:textColorHint="#686868"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_LoginInformation"
-        tools:text="UserName" />
+        app:layout_constraintTop_toBottomOf="@id/tv_LoginInformation" />
 
     <TextView
         android:id="@+id/HouseholdIdDrawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:hint="Household"
         android:textColor="@color/white"
+        android:textColorHint="#686868"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_UserIdDrawer"
-        tools:text="Household" />
+        app:layout_constraintTop_toBottomOf="@id/tv_UserIdDrawer" />
 
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/bt_logout"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/tv_UserIdDrawer"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Logout"
         android:backgroundTint="#707070"
-        app:layout_constraintBottom_toBottomOf="@id/HouseholdIdDrawer"/>
+        android:text="Logout"
+        app:layout_constraintBottom_toBottomOf="@id/HouseholdIdDrawer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_UserIdDrawer" />
 
     <TextView
         android:id="@+id/tv_Broker"
@@ -74,32 +76,128 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/HouseholdIdDrawer" />
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+    <RadioGroup
+        android:id="@+id/radio_broker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/radio_broker"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_Broker">
 
         <RadioButton
             android:id="@+id/radio_emqx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EMQX"
-            android:textSize="18dp"
-            android:textColor="@color/white"
             android:layout_marginStart="10dp"
-            />
+            android:text="EMQX"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
         <RadioButton
             android:id="@+id/radio_mosquitto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="Mosquitto"
-            android:textSize="18dp"
             android:textColor="@color/white"
-            android:layout_marginStart="10dp"/>
+            android:textSize="18dp" />
+
+        <RadioButton
+            android:id="@+id/radio_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Other: "
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
     </RadioGroup>
+
+    <EditText
+        android:inputType="text"
+        android:id="@+id/et_broker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Broker url"
+        android:textColor="@color/white"
+        android:textColorHint="#686868"
+        app:layout_constraintBottom_toBottomOf="@+id/radio_broker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radio_broker"
+        android:imeOptions="actionDone"/>
+
+    <TextView
+        android:id="@+id/TopicsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_broker"
+        android:text="Topics"
+        android:textColor="@color/white"
+        android:textSize="26dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/fridgeTopic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Fridge Scanner: "
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/TopicsTitle"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/et_fridge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:hint="Fridge Topic"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fridgeTopic"
+        app:layout_constraintTop_toTopOf="@+id/fridgeTopic"
+        android:imeOptions="actionDone"
+        android:inputType="text"/>
+
+    <TextView
+        android:inputType="textPersonName"
+        android:id="@+id/trashTopic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Trash Scanner: "
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/fridgeTopic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_fridge" />
+
+    <EditText
+        android:id="@+id/et_trash"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/trashTopic"
+        app:layout_constraintTop_toTopOf="@+id/trashTopic"
+        tools:hint="Trash Topic"
+        android:imeOptions="actionDone"
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/applyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#707070"
+        android:text="Apply"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_trash" />
 
     <TextView
         android:id="@+id/tv_credits"
@@ -107,21 +205,23 @@
         android:layout_height="wrap_content"
         android:text="Credits"
         android:textColor="@color/white"
+        android:layout_marginTop="8dp"
         android:textSize="26dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radio_broker"/>
+        app:layout_constraintTop_toBottomOf="@id/applyButton" />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_credits"
         android:layout_marginStart="10dp"
+        android:text="Àlex Castillo Camacho\nLorenzo Migliori\nRafael Correa"
         android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_goneMarginStart="10dp"
-        android:text="Àlex Castillo Camacho\nLorenzo Migliori\nRafael Correa"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tv_credits"
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

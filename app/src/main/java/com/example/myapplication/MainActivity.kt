@@ -3,18 +3,15 @@ package com.example.myapplication
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.DatePicker
-import android.widget.ImageButton
-import android.widget.RadioButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import com.budiyev.android.codescanner.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.login_popup.view.*
@@ -27,7 +24,7 @@ import java.util.Calendar.*
 
 
 private const val CAMERA_REQUEST_CODE = 101
-var str: String = "0"
+var sentText: String = "0"
 
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var mqttClient: MqttAndroidClient
@@ -59,6 +56,8 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     var productQuant = 1
     var productQuantS: String = "1"
 
+    var fridgeTopic = "smart-shopping/add-item-home-catalog3"
+    var trashTopic = "smart-shopping/add-item-shopping-list3"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     fun askLogin() {
         if (UserId.isNullOrEmpty() || HouseHoldID.isNullOrEmpty()) {
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.login_popup, null);
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.login_popup, null)
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView).setTitle("Login")
             val mAlertDialog = mBuilder.show()
             mDialogView.popupLoginButton.setOnClickListener {
@@ -130,11 +129,11 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     fun removeItem() {
         subtractButton.setOnClickListener {
-
             if (productQuant > 1) productQuant--
             tv_productQtt.text = productQuant.toString()
         }
     }
+
 
     fun openSettings() {
         val settingsButton = findViewById<ImageButton>(R.id.settingsButton)
@@ -142,12 +141,25 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.settings_menu, null);
             val mBuilder = AlertDialog.Builder(this).setView(mDialogView).setTitle("")
             val mAlertDialog = mBuilder.show()
+            mAlertDialog.radio_other.isEnabled = false
+            mAlertDialog.et_trash.setText(trashTopic)
+            mAlertDialog.et_fridge.setText(fridgeTopic)
+            mAlertDialog.et_broker.hint = broker
+            mAlertDialog.et_broker.addTextChangedListener {
+                if( !mAlertDialog.et_broker.text.toString().isNullOrEmpty())
+                    mAlertDialog.radio_other.isEnabled = true
+                else{
+                    mAlertDialog.radio_other.isEnabled = false
+                }
+            }
             if (UserId.isNullOrEmpty() || HouseHoldID.isNullOrEmpty()) {
                 mAlertDialog.bt_logout.text = "Login"
             }
+
             if (broker == "tcp://broker.emqx.io:1883")
                 mAlertDialog.radio_broker.check(R.id.radio_emqx)
             else mAlertDialog.radio_broker.check(R.id.radio_mosquitto)
+
             mAlertDialog.radio_broker.setOnCheckedChangeListener { radioGroup, checkedBroker ->
                 if (checkedBroker == R.id.radio_emqx) {
                     broker = "tcp://broker.emqx.io:1883"
@@ -155,8 +167,30 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 } else if (checkedBroker == R.id.radio_mosquitto) {
                     broker = "tcp://test.mosquitto.org:1883"
                     connect(this)
+                } else if (checkedBroker == R.id.radio_other) {
+                    broker = mAlertDialog.et_broker.text.toString()
+                    connect(this)
+                    mAlertDialog.et_broker.hint = broker
                 }
             }
+
+            mAlertDialog.applyButton.setOnClickListener {
+                if (!mAlertDialog.et_fridge.text.toString().isNullOrEmpty()) {
+                    fridgeTopic = mAlertDialog.et_fridge.text.toString()
+                    toastApplied()
+                } else {
+                    toastLoginDismiss()
+                }
+                if (!mAlertDialog.et_trash.text.toString().isNullOrEmpty()) {
+                    trashTopic = mAlertDialog.et_trash.text.toString()
+                    toastApplied()
+                } else {
+                    toastLoginDismiss()
+                }
+                mAlertDialog.et_trash.setText(trashTopic)
+                mAlertDialog.et_fridge.setText(fridgeTopic)
+            }
+
             mAlertDialog.tv_UserIdDrawer.text = UserId
             mAlertDialog.HouseholdIdDrawer.text = HouseHoldID
             mAlertDialog.bt_logout.setOnClickListener {
@@ -189,22 +223,22 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     if (UserId.isNotEmpty() && HouseHoldID.isNotEmpty()) {
                         if (scannerMode == 0) {
                             productQuantS = productQuant.toString()
-                            str = """"${
+                            sentText = """"${
                                 it.text.plus(' ').plus(strYear).plus(' ').plus(strMonth)
                                     .plus(' ')
                                     .plus(strDay).plus(' ').plus(UserId).plus(' ')
                                     .plus(HouseHoldID)
                                     .plus(' ').plus(productQuantS)
                             }""""
-                            publish("smart-shopping/add-item-home-catalog2", str, 1, false)
+                            publish(fridgeTopic, sentText, 1, false)
                             fadeF()
                         } else {
-                            str = """"${
+                            sentText = """"${
                                 it.text.plus(' ').plus(UserId).plus(' ').plus(HouseHoldID)
                                     .plus(' ')
                                     .plus(productQuantS)
                             }""""
-                            publish("smart-shopping/add-item-shopping-list2", str, 1, false)
+                            publish(trashTopic, sentText, 1, false)
                             fadeT()
                         }
                     } else {
@@ -304,11 +338,23 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show()
     }
 
+    fun toastConnectionFailure() {
+        Toast.makeText(this, "Connection failed, check broker url and internet connection", Toast.LENGTH_SHORT).show()
+    }
+
+    fun toastConnectionSuccess() {
+        Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show()
+    }
+
+    fun toastApplied() {
+        Toast.makeText(this, "Applied", Toast.LENGTH_SHORT).show()
+    }
+
     //////MQTT//////
     fun connect(context: Context) {
 
         var serverURI = broker   //"tcp://test.mosquitto.org:1883" or "tcp://broker.emqx.io:1883"
-        mqttClient = MqttAndroidClient(context, serverURI, "kotlin_client")
+        mqttClient = MqttAndroidClient(context, serverURI, UserId)
         mqttClient.setCallback(object : MqttCallback {
             override fun messageArrived(topic: String?, message: MqttMessage?) {
                 Log.d(TAG, "Receive message: ${message.toString()} from topic: $topic")
@@ -316,6 +362,7 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
             override fun connectionLost(cause: Throwable?) {
                 Log.d(TAG, "Connection lost ${cause.toString()}")
+                toastConnectionFailure()
             }
 
             override fun deliveryComplete(token: IMqttDeliveryToken?) {
@@ -327,10 +374,12 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             mqttClient.connect(options, null, object : IMqttActionListener {
                 override fun onSuccess(asyncActionToken: IMqttToken?) {
                     Log.d(TAG, "Connection success")
+                    toastConnectionSuccess()
                 }
 
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
                     Log.d(TAG, "Connection failure")
+                    toastConnectionFailure()
                 }
             })
         } catch (e: MqttException) {
